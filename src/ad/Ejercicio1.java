@@ -3,11 +3,40 @@ package ad;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Ejercicio1 {
     public static void main(String[] args) throws IOException {
+    int opcion = 999;
+    Scanner teclado = new Scanner(System.in);
+    while (opcion != 0) {
+        System.out.println("Dime que opción prefieres:\n-Escribir con Buffer\n-Escribir con Files");
+
+        opcion= teclado.nextInt();
+
+        switch(opcion){
+            case 1:
+                escribirBuffer();
+            break;
+            case 2:
+                escribirNio();
+            break;
+
+            case 0:
+                break;
+        }
+
+
+    }
+
+
+
+
 
     }
     public static void escribirBuffer(){
@@ -45,7 +74,7 @@ public class Ejercicio1 {
             throw new RuntimeException(e);
         }
     }
-    public static void escribirNio(){
+    public static void escribirNio() throws IOException {
         Random longlinea = new Random();
         Random sacarpalabras = new Random();
         long time = System.currentTimeMillis();
@@ -71,7 +100,14 @@ public class Ejercicio1 {
 
                 linea = linea + fichero[j] + " ";
             }
+            Path ruta = Paths.get("src/ad/"+ficheroname+".txt");
+            try {
+                Files.write(ruta, linea.getBytes(), StandardOpenOption.APPEND);
+                Files.write(ruta, "\n".getBytes(), StandardOpenOption.APPEND);
 
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println("Tiempo de ejecución: " + time);
     }

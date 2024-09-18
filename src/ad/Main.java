@@ -12,7 +12,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
     Path ruta1 = Paths.get("src/ad/fichero");
         try {
-            Files.write(ruta1,"Hola buenas tardes".getBytes(), StandardOpenOption.APPEND);
+            String frase = "Hola buenas tardes";
+            Files.write(ruta1,frase.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
